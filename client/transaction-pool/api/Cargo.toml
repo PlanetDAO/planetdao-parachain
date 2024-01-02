@@ -11,7 +11,7 @@ description = "Transaction pool client facing API."
 [dependencies]
 async-trait = "0.1.57"
 codec = { package = "parity-scale-codec", version = "3.6.1" }
-futures = "0.3.21"
+futures = "0.3.30"
 log = "0.4.17"
 serde = { version = "1.0.163", features = ["derive"] }
 thiserror = "1.0.30"

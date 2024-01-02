@@ -15,7 +15,7 @@ targets = ["x86_64-unknown-linux-gnu"]
 
 [dependencies]
 async-trait = "0.1.57"
-futures = { version = "0.3.21", features = ["thread-pool"] }
+futures = { version = "0.3.30", features = ["thread-pool"] }
 log = "0.4.17"
 thiserror = "1.0.30"
 sp-core = { version = "21.0.0", path = "../../core" }
@@ -24,7 +24,7 @@ sp-runtime = { version = "24.0.0", path = "../../runtime" }
 sp-state-machine = { version = "0.28.0", path = "../../state-machine" }
 
 [dev-dependencies]
-futures = "0.3.21"
+futures = "0.3.30"
 sp-test-primitives = { version = "2.0.0", path = "../../test-primitives" }
 
 [features]

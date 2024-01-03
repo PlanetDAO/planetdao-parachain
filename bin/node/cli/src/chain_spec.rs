@@ -258,6 +258,22 @@ pub fn testnet_genesis(
 			get_account_id_from_seed::<sr25519::Public>("Ferdie//stash"),
 		]
 	});
+
+	let accounts_with_balance: Vec<AccountId> = endowed_accounts.iter().cloned().map(|k| (k)).collect();
+	let json_data = &include_bytes!("../../../../seed/balances.json")[..];
+	let additional_accounts_with_balance: Vec<AccountId> = serde_json::from_slice(json_data).unwrap();
+
+	let mut accounts = additional_accounts_with_balance.clone();
+
+	accounts_with_balance.iter().for_each(|tup1| {
+		for tup2 in additional_accounts_with_balance.iter() {
+			if tup1 == tup2 {
+				return;
+			}
+		}
+		accounts.push(tup1.to_owned());
+	});
+
 	// endow all authorities and nominators.
 	initial_authorities
 		.iter()

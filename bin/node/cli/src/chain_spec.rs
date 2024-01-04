@@ -28,6 +28,7 @@ use kitchensink_runtime::{
 use pallet_im_online::sr25519::AuthorityId as ImOnlineId;
 use sc_chain_spec::ChainSpecExtension;
 use sc_service::ChainType;
+use sc_service::Properties;
 use sc_telemetry::TelemetryEndpoints;
 use serde::{Deserialize, Serialize};
 use sp_authority_discovery::AuthorityId as AuthorityDiscoveryId;
@@ -387,16 +388,51 @@ pub fn testnet_genesis(
 }
 
 fn development_config_genesis() -> RuntimeGenesisConfig {
+	let mut endowed_accounts: Vec<AccountId> = vec![
+		get_account_id_from_seed::<sr25519::Public>("Alice"),
+		get_account_id_from_seed::<sr25519::Public>("Bob"),
+		get_account_id_from_seed::<sr25519::Public>("Charlie"),
+		get_account_id_from_seed::<sr25519::Public>("Dave"),
+		get_account_id_from_seed::<sr25519::Public>("Eve"),
+		get_account_id_from_seed::<sr25519::Public>("Ferdie"),
+		get_account_id_from_seed::<sr25519::Public>("Alice//stash"),
+		get_account_id_from_seed::<sr25519::Public>("Bob//stash"),
+		get_account_id_from_seed::<sr25519::Public>("Charlie//stash"),
+		get_account_id_from_seed::<sr25519::Public>("Dave//stash"),
+		get_account_id_from_seed::<sr25519::Public>("Eve//stash"),
+		get_account_id_from_seed::<sr25519::Public>("Ferdie//stash"),
+	];
+
+	let accounts_with_balance: Vec<AccountId> = endowed_accounts.iter().cloned().map(|k| (k)).collect();
+	let json_data = &include_bytes!("../../../../seed/balances.json")[..];
+	let additional_accounts_with_balance: Vec<AccountId> = serde_json::from_slice(json_data).unwrap();
+
+	let mut accounts = additional_accounts_with_balance.clone();
+
+	accounts_with_balance.iter().for_each(|tup1| {
+		for tup2 in additional_accounts_with_balance.iter() {
+			if tup1 == tup2 {
+				return;
+			}
+		}
+		accounts.push(tup1.to_owned());
+	});
+
 	testnet_genesis(
 		vec![authority_keys_from_seed("Alice")],
 		vec![],
 		get_account_id_from_seed::<sr25519::Public>("Alice"),
-		None,
+		Some(accounts),
 	)
 }
 
 /// Development config (single validator Alice).
 pub fn development_config() -> ChainSpec {
+	let mut properties = Properties::new();
+	properties.insert("tokenSymbol".into(), "DOT".into());
+	properties.insert("tokenDecimals".into(), 12.into());
+	properties.insert("ss58Format".into(), 42.into());
+
 	ChainSpec::from_genesis(
 		"Development",
 		"dev",
@@ -406,7 +442,7 @@ pub fn development_config() -> ChainSpec {
 		None,
 		None,
 		None,
-		None,
+		Some(properties),
 		Default::default(),
 	)
 }

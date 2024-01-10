@@ -62,6 +62,8 @@ use pallet_im_online::sr25519::AuthorityId as ImOnlineId;
 use pallet_nfts::PalletFeatures;
 /// Import the template pallet.
 pub use pallet_daos;
+pub use pallet_goals;
+pub use pallet_ideas;
 pub use pallet_users;
 use pallet_nis::WithMaximumOf;
 use pallet_session::historical as pallet_session_historical;
@@ -2022,6 +2024,14 @@ impl pallet_users::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type WeightInfo = pallet_users::weights::SubstrateWeight<Runtime>;
 }
+impl pallet_goals::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type WeightInfo = pallet_goals::weights::SubstrateWeight<Runtime>;
+}
+impl pallet_ideas::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type WeightInfo = pallet_ideas::weights::SubstrateWeight<Runtime>;
+}
 construct_runtime!(
 	pub struct Runtime
 	{
@@ -2100,6 +2110,8 @@ construct_runtime!(
 		Broker: pallet_broker,
 		// Include the custom logic from the pallet-template in the runtime.
 		Daos: pallet_daos,
+		Goals: pallet_goals,
+		Ideas: pallet_ideas,
 		Users: pallet_users
 	}
 );

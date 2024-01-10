@@ -33,7 +33,6 @@ sp-api = { version = "4.0.0-dev", default-features = false, path = "../../primit
 sp-runtime = { version = "24.0.0", default-features = false, path = "../../primitives/runtime", features = ["serde"] }
 pallet-babe = { version = "4.0.0-dev", default-features = false, path = "../../frame/babe" }
 pallet-balances = { version = "4.0.0-dev", default-features = false, path = "../../frame/balances" }
-pallet-daos = { default-features = false, path = "../../frame/daos" }
 frame-executive = { version = "4.0.0-dev", default-features = false, path = "../../frame/executive" }
 frame-system = { version = "4.0.0-dev", default-features = false, path = "../../frame/system" }
 frame-system-rpc-runtime-api = { version = "4.0.0-dev", default-features = false, path = "../../frame/system/rpc/runtime-api" }

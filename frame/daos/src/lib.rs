@@ -34,10 +34,19 @@ pub mod pallet {
 	#[pallet::getter(fn _dao_ids)]
 	pub type _dao_ids<T> = StorageValue<_, u32>;
 
+	#[pallet::storage]
+	#[pallet::getter(fn _joined_ids)]
+	pub type _joined_ids<T> = StorageValue<_, u32>;
+
 	/// Get the details of a daos by its' id.
 	#[pallet::storage]
 	#[pallet::getter(fn dao_by_id)]
 	pub type DaoById<T: Config> = StorageMap<_, Twox64Concat, u32, DAO>;
+
+	/// Get the details of a joined community by its' id.
+	#[pallet::storage]
+	#[pallet::getter(fn joined_by_id)]
+	pub type JoinedById<T: Config> = StorageMap<_, Twox64Concat, u32, JOINED>;
 
 	#[pallet::storage]
 	#[pallet::getter(fn template_by_id)]
@@ -86,9 +95,41 @@ pub mod pallet {
 			TemplateById::<T>::insert(new_id, _template);
 			Ok(())
 		}
-
-
 		#[pallet::call_index(1)]
+		#[pallet::weight(T::WeightInfo::join_community())]
+		pub fn join_community(
+			origin: OriginFor<T>,
+			_dao_id: String,
+			_user_id: String,
+			_feed: String,
+		) -> DispatchResult {
+
+			let mut new_id = 0;
+			match <_joined_ids<T>>::try_get(){
+				Ok(old)=>{
+					new_id = old;
+					<_joined_ids<T>>::put(new_id + 1);
+				}
+				Err(_)=>{<_joined_ids<T>>::put(1);}
+			}
+
+			let new_joined = &mut  JOINED {
+				id: new_id,
+				daoid: _dao_id,
+				user_id: _user_id
+			} ;
+
+			JoinedById::<T>::insert(new_id, new_joined);
+			Ok(())
+		}
+
+
+		
+
+
+
+
+		#[pallet::call_index(2)]
 		#[pallet::weight(T::WeightInfo::update_template())]
 		pub fn update_template(
 			_origin: OriginFor<T>,
@@ -98,23 +139,6 @@ pub mod pallet {
 
 			TemplateById::<T>::set(_dao_id, Some( _template));
 			Ok(())
-		}
-
-		#[pallet::call_index(2)]
-		#[pallet::weight(T::WeightInfo::cause_error())]
-		pub fn cause_error(origin: OriginFor<T>) -> DispatchResult {
-			let _who = ensure_signed(origin)?;
-
-			// Read a value from storage.
-			match <_dao_ids<T>>::get() {
-				// Return an error if the value has not been set.
-				None => return Err(Error::<T>::NoneValue.into()),
-				Some(old) => {
-					let new = old.checked_add(1).ok_or(Error::<T>::StorageOverflow)?;
-					<_dao_ids<T>>::put(new);
-					Ok(())
-				},
-			}
 		}
 
 	}

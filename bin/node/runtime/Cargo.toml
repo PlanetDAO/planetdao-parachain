@@ -67,6 +67,8 @@ pallet-babe = { version = "4.0.0-dev", default-features = false, path = "../../.
 pallet-bags-list = { version = "4.0.0-dev", default-features = false, path = "../../../frame/bags-list" }
 pallet-balances = { version = "4.0.0-dev", default-features = false, path = "../../../frame/balances" }
 pallet-daos = { default-features = false, path = "../../../frame/daos" }
+pallet-goals = { default-features = false, path = "../../../frame/goals" }
+pallet-ideas = { default-features = false, path = "../../../frame/ideas" }
 pallet-users = { default-features = false, path = "../../../frame/users" }
 pallet-bounties = { version = "4.0.0-dev", default-features = false, path = "../../../frame/bounties" }
 pallet-broker = { version = "0.1.0", default-features = false, path = "../../../frame/broker" }

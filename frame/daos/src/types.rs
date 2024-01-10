@@ -33,3 +33,29 @@ impl DAO {
 }
 
 
+
+
+#[derive(Encode, Decode, Clone, Eq, PartialEq, RuntimeDebug, TypeInfo)]
+#[scale_info(skip_type_params(T))]
+pub struct JOINED {
+	pub id: u32,
+
+    pub daoid: String,
+    pub user_id: String
+}
+
+impl JOINED {
+    pub fn new(
+         id: u32,
+         daoid: String,
+         user_id: String
+    ) -> Self {
+        JOINED {
+            id,
+            daoid:daoid,
+			user_id:user_id
+        }
+    }
+}
+
+

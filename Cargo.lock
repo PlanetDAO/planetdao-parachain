@@ -4257,7 +4257,9 @@ dependencies = [
  "pallet-elections-phragmen",
  "pallet-fast-unstake",
  "pallet-glutton",
+ "pallet-goals",
  "pallet-grandpa",
+ "pallet-ideas",
  "pallet-identity",
  "pallet-im-online",
  "pallet-indices",
@@ -5814,7 +5816,6 @@ dependencies = [
  "frame-try-runtime",
  "pallet-aura",
  "pallet-balances",
- "pallet-daos",
  "pallet-grandpa",
  "pallet-sudo",
  "pallet-template",
@@ -6862,6 +6863,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-goals"
+version = "4.0.0-dev"
+dependencies = [
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "scale-info",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+]
+
+[[package]]
 name = "pallet-grandpa"
 version = "4.0.0-dev"
 dependencies = [
@@ -6889,6 +6904,20 @@ dependencies = [
  "sp-session",
  "sp-staking",
  "sp-std",
+]
+
+[[package]]
+name = "pallet-ideas"
+version = "4.0.0-dev"
+dependencies = [
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "scale-info",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
 ]
 
 [[package]]
@@ -12388,7 +12417,6 @@ dependencies = [
  "log",
  "pallet-babe",
  "pallet-balances",
- "pallet-daos",
  "pallet-timestamp",
  "parity-scale-codec",
  "sc-block-builder",

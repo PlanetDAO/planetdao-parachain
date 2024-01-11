@@ -11,22 +11,22 @@ use super::*;
 pub struct FEED {
 	pub feed_id: u32,
 
-    pub date: String,
-    pub Type: String,
+    pub date: u64,
+    pub feed_type: String,
     pub data: String
 }
 
 impl FEED {
     pub fn new(
 		feed_id: u32,
-		date: String,
-		_type: String,
+		date: u64,
+		feed_type: String,
 		data: String
     ) -> Self {
-        DAO {
+        FEED {
             feed_id,
             date:date,
-			Type:_type,
+			feed_type:feed_type,
 			data:data
         }
     }

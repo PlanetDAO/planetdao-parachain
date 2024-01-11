@@ -65,6 +65,7 @@ pub use pallet_daos;
 pub use pallet_goals;
 pub use pallet_ideas;
 pub use pallet_users;
+pub use pallet_feeds;
 use pallet_nis::WithMaximumOf;
 use pallet_session::historical as pallet_session_historical;
 pub use pallet_transaction_payment::{CurrencyAdapter, Multiplier, TargetedFeeAdjustment};
@@ -2020,6 +2021,10 @@ impl pallet_daos::Config for Runtime {
 }
 
 
+impl pallet_feeds::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type WeightInfo = pallet_feeds::weights::SubstrateWeight<Runtime>;
+}
 impl pallet_users::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type WeightInfo = pallet_users::weights::SubstrateWeight<Runtime>;
@@ -2110,6 +2115,7 @@ construct_runtime!(
 		Broker: pallet_broker,
 		// Include the custom logic from the pallet-template in the runtime.
 		Daos: pallet_daos,
+		Feeds: pallet_feeds,
 		Goals: pallet_goals,
 		Ideas: pallet_ideas,
 		Users: pallet_users

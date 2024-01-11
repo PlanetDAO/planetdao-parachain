@@ -70,6 +70,7 @@ pallet-daos = { default-features = false, path = "../../../frame/daos" }
 pallet-goals = { default-features = false, path = "../../../frame/goals" }
 pallet-ideas = { default-features = false, path = "../../../frame/ideas" }
 pallet-users = { default-features = false, path = "../../../frame/users" }
+pallet-feeds = { default-features = false, path = "../../../frame/feeds" }
 pallet-bounties = { version = "4.0.0-dev", default-features = false, path = "../../../frame/bounties" }
 pallet-broker = { version = "0.1.0", default-features = false, path = "../../../frame/broker" }
 pallet-child-bounties = { version = "4.0.0-dev", default-features = false, path = "../../../frame/child-bounties" }

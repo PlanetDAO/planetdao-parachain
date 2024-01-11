@@ -10,7 +10,6 @@ use scale_info::prelude::string::String;
 pub use weights::*;
 // pub mod rpc;
 pub mod types;
-pub trait Config: timestamp::Config {}
 
 
 #[frame_support::pallet]
@@ -29,6 +28,11 @@ pub mod pallet {
 	pub trait Config: frame_system::Config {
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 		type WeightInfo: WeightInfo;
+	}
+	#[pallet::event]
+	#[pallet::generate_deposit(pub(super) fn deposit_event)]
+	pub enum Event<T: Config> {
+		SomethingStored { something: u32, who: T::AccountId },
 	}
 
 	#[pallet::storage]
@@ -49,7 +53,8 @@ pub mod pallet {
 		pub fn add_Feed(
 			origin: OriginFor<T>,
 			feed_text: String,
-			_type: String
+			feed_type: String,
+			_now:u64
 		) -> DispatchResult {
 
 			let mut new_id = 0;
@@ -61,12 +66,11 @@ pub mod pallet {
 				Err(_)=>{<_feeds_ids<T>>::put(1);}
 			}
 
-			let _now = <timestamp::Module<T>>::get();
-
+		
 			let new_feed = &mut  FEED {
 				feed_id: new_id,
 				date: _now,
-				Type: _type,
+				feed_type: feed_type,
 				data:  feed_text
 			} ;
 

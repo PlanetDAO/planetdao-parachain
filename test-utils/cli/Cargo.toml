@@ -23,7 +23,7 @@ node-primitives = { path = "../../bin/node/primitives" }
 node-cli = { path = "../../bin/node/cli" }
 sc-cli = { path = "../../client/cli" }
 sc-service = { path = "../../client/service" }
-futures = "0.3.28"
+futures = "0.3.30"
 
 [features]
 try-runtime = [ "node-cli/try-runtime" ]

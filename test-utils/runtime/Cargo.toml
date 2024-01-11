@@ -52,7 +52,7 @@ serde = { version = "1.0.163", features = ["alloc", "derive"], default-features 
 serde_json = { version = "1.0.85", default-features = false, features = ["alloc"] }
 
 [dev-dependencies]
-futures = "0.3.21"
+futures = "0.3.30"
 sc-block-builder = { version = "0.10.0-dev", path = "../../client/block-builder" }
 sc-executor = { version = "0.10.0-dev", path = "../../client/executor" }
 sc-executor-common = { version = "0.10.0-dev", path = "../../client/executor/common" }

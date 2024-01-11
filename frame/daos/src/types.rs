@@ -41,19 +41,22 @@ pub struct JOINED {
 	pub id: u32,
 
     pub daoid: String,
-    pub user_id: String
+    pub user_id: String,
+    pub joined_date:String
 }
 
 impl JOINED {
     pub fn new(
          id: u32,
          daoid: String,
-         user_id: String
+         user_id: String,
+         joined_date: String
     ) -> Self {
         JOINED {
             id,
             daoid:daoid,
-			user_id:user_id
+			user_id:user_id,
+            joined_date:joined_date
         }
     }
 }

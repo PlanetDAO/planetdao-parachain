@@ -38,7 +38,10 @@ pub mod pallet {
 	#[pallet::getter(fn _smart_contract_ids)]
 	pub type _smart_contract_ids<T> = StorageValue<_, u32>;
 
-	
+	#[pallet::storage]
+	#[pallet::getter(fn _donations_ids)]
+	pub type _donations_ids<T> = StorageValue<_, u32>;
+
 	/// Get the details of a Smart Contract by its' id.
 	#[pallet::storage]
 	#[pallet::getter(fn smart_contract_by_id)]
@@ -50,6 +53,15 @@ pub mod pallet {
 	#[pallet::storage]
 	#[pallet::getter(fn ideas_by_id)]
 	pub type IdeasById<T: Config> = StorageMap<_, Twox64Concat, u32, IDEAS>;
+	/// Get the donations details of user id by its' id.
+	#[pallet::storage]
+	#[pallet::getter(fn donated_by_id)]
+	pub type DonatedById<T: Config> = StorageMap<_, Twox64Concat, String, u32>;
+
+	/// Get the donations details of user id by its' id.
+	#[pallet::storage]
+	#[pallet::getter(fn donatiion_by_id)]
+	pub type DonationsById<T: Config> = StorageMap<_, Twox64Concat, u32, DONATION>;
 
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
@@ -101,8 +113,51 @@ pub mod pallet {
 
 			Ok(())
 		}
+		#[pallet::call_index(1)]
+		#[pallet::weight(T::WeightInfo::add_donation())]
+		pub fn add_donation(
+			origin: OriginFor<T>,
+			_ideas_id: String,
+			_doantion: u32,
+			_userid: String,
+			_feed1: String,
+			_feed2: String,
+		) -> DispatchResult {
+
+			let mut new_id = 0;
+			match <_donations_ids<T>>::try_get(){
+				Ok(old)=>{
+					new_id = old;
+					<_donations_ids<T>>::put(new_id + 1);
+				}
+				Err(_)=>{<_donations_ids<T>>::put(1);}
+			}
+
+			let new_donation= &mut  DONATION {
+				id: new_id,
+				ideas_id: _ideas_id,
+				userid: _userid.clone(),
+				donation: _doantion,
+			} ;
+
+			DonationsById::<T>::insert(new_id, new_donation);
+			if (DonatedById::<T>::contains_key(_userid.clone())){
+				let old_donation = &mut 0;
+				match <DonatedById<T>>::try_get(_userid.clone()){
+					Ok(old)=>{
+						*old_donation = old;
+					}
+					Err(_)=>{}
+				}
+			
+				DonatedById::<T>::set(_userid.clone(), Some(_doantion + *old_donation));
+			}else{
+				DonatedById::<T>::insert(_userid.clone(), _doantion);
+			}
+			
 
 
-
+			Ok(())
+		}
 	}
 }

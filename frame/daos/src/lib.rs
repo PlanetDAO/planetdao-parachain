@@ -102,6 +102,7 @@ pub mod pallet {
 			_dao_id: String,
 			_user_id: String,
 			_feed: String,
+			_joined_date:String
 		) -> DispatchResult {
 
 			let mut new_id = 0;
@@ -116,7 +117,8 @@ pub mod pallet {
 			let new_joined = &mut  JOINED {
 				id: new_id,
 				daoid: _dao_id,
-				user_id: _user_id
+				user_id: _user_id,
+				joined_date:_joined_date
 			} ;
 
 			JoinedById::<T>::insert(new_id, new_joined);

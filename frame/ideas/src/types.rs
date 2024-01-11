@@ -60,3 +60,30 @@ impl SmartContract {
     }
 }
 
+
+
+#[derive(Encode, Decode, Clone, Eq, PartialEq, RuntimeDebug, TypeInfo)]
+#[scale_info(skip_type_params(T))]
+pub struct DONATION {
+	pub id: u32,
+
+    pub ideas_id: String,
+    pub userid: String,
+    pub donation: u32
+}
+
+impl DONATION {
+    pub fn new(
+		id: u32,
+		ideas_id: String,
+		userid: String,
+		donation: u32,
+    ) -> Self {
+        DONATION {
+            id,
+            ideas_id:ideas_id,
+			userid:userid,
+			donation:donation
+        }
+    }
+}

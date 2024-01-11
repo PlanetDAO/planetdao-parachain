@@ -44,9 +44,7 @@ path = "bin/node/cli/bin/main.rs"
 resolver = "2"
 
 members = [
-	"bin/node-template/node",
-	"bin/node-template/pallets/template",
-	"bin/node-template/runtime",
+	
 	"bin/node/bench",
 	"bin/node/cli",
 	"bin/node/executor",
@@ -290,7 +288,6 @@ members = [
 	"primitives/version/proc-macro",
 	"primitives/wasm-interface",
 	"primitives/weights",
-	"scripts/ci/node-template-release",
 	"test-utils",
 	"test-utils/cli",
 	"test-utils/client",

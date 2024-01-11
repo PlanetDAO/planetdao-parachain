@@ -101,8 +101,8 @@ pub mod pallet {
 			origin: OriginFor<T>,
 			_dao_id: String,
 			_user_id: String,
-			_feed: String,
-			_joined_date:String
+			_joined_date:String,
+			_feed: String
 		) -> DispatchResult {
 
 			let mut new_id = 0;

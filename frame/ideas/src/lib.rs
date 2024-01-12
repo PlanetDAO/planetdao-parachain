@@ -129,9 +129,7 @@ pub mod pallet {
 			origin: OriginFor<T>,
 			_ideas_id: String,
 			_doantion: u32,
-			_userid: String,
-			_feed1: String,
-			_feed2: String,
+			_userid: String
 		) -> DispatchResult {
 
 			let mut new_id = 0;

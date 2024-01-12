@@ -87,3 +87,32 @@ impl DONATION {
         }
     }
 }
+
+
+
+
+#[derive(Encode, Decode, Clone, Eq, PartialEq, RuntimeDebug, TypeInfo)]
+#[scale_info(skip_type_params(T))]
+pub struct VOTE {
+	pub id: u32,
+
+    pub goal_id: String,
+    pub ideas_id: String,
+    pub user_id: String
+}
+
+impl VOTE {
+    pub fn new(
+		id: u32,
+		goal_id: String,
+		ideas_id: String,
+		user_id: String
+    ) -> Self {
+        VOTE {
+            id,
+			goal_id:goal_id,
+			ideas_id:ideas_id,
+			user_id:user_id
+        }
+    }
+}

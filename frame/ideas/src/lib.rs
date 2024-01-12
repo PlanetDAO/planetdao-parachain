@@ -42,13 +42,18 @@ pub mod pallet {
 	#[pallet::getter(fn _donations_ids)]
 	pub type _donations_ids<T> = StorageValue<_, u32>;
 
+	#[pallet::storage]
+	#[pallet::getter(fn _votes_ids)]
+	pub type _votes_ids<T> = StorageValue<_, u32>;
+
+
 	/// Get the details of a Smart Contract by its' id.
 	#[pallet::storage]
 	#[pallet::getter(fn smart_contract_by_id)]
 	pub type SmartContractsById<T: Config> = StorageMap<_, Twox64Concat, u32, SmartContract>;
 
 
-	
+
 	/// Get the details of a ideas by its' id.
 	#[pallet::storage]
 	#[pallet::getter(fn ideas_by_id)]
@@ -60,8 +65,13 @@ pub mod pallet {
 
 	/// Get the donations details of user id by its' id.
 	#[pallet::storage]
-	#[pallet::getter(fn donatiion_by_id)]
+	#[pallet::getter(fn donation_by_id)]
 	pub type DonationsById<T: Config> = StorageMap<_, Twox64Concat, u32, DONATION>;
+
+	/// Get the votes details of user id by its' id.
+	#[pallet::storage]
+	#[pallet::getter(fn vote_by_id)]
+	pub type VoteById<T: Config> = StorageMap<_, Twox64Concat, u32, VOTE>;
 
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
@@ -149,15 +159,45 @@ pub mod pallet {
 					}
 					Err(_)=>{}
 				}
-			
+
 				DonatedById::<T>::set(_userid.clone(), Some(_doantion + *old_donation));
 			}else{
 				DonatedById::<T>::insert(_userid.clone(), _doantion);
 			}
-			
+
 
 
 			Ok(())
 		}
+		#[pallet::call_index(2)]
+		#[pallet::weight(T::WeightInfo::create_vote())]
+		pub fn create_vote(
+			origin: OriginFor<T>,
+			_goal_id: String,
+			_ideas_id: String,
+			_user_id: String,
+		) -> DispatchResult {
+
+			let mut new_id = 0;
+			match <_votes_ids<T>>::try_get(){
+				Ok(old)=>{
+					new_id = old;
+					<_votes_ids<T>>::put(new_id + 1);
+				}
+				Err(_)=>{<_votes_ids<T>>::put(1);}
+			}
+
+			let new_vote= &mut  VOTE {
+				id: new_id,
+				goal_id: _goal_id,
+				ideas_id: _ideas_id,
+				user_id: _user_id
+			} ;
+
+			VoteById::<T>::insert(new_id, new_vote);
+
+			Ok(())
+		}
+
 	}
 }

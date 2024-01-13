@@ -69,7 +69,7 @@ pub struct DONATION {
 
     pub ideas_id: String,
     pub userid: String,
-    pub donation: u32
+    pub donation: u64
 }
 
 impl DONATION {
@@ -77,7 +77,7 @@ impl DONATION {
 		id: u32,
 		ideas_id: String,
 		userid: String,
-		donation: u32,
+		donation: u64,
     ) -> Self {
         DONATION {
             id,

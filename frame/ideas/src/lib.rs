@@ -61,7 +61,7 @@ pub mod pallet {
 	/// Get the donations details of user id by its' id.
 	#[pallet::storage]
 	#[pallet::getter(fn donated_by_id)]
-	pub type DonatedById<T: Config> = StorageMap<_, Twox64Concat, String, u32>;
+	pub type DonatedById<T: Config> = StorageMap<_, Twox64Concat, String, u64>;
 
 	/// Get the donations details of user id by its' id.
 	#[pallet::storage]

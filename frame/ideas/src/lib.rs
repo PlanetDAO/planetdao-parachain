@@ -128,7 +128,7 @@ pub mod pallet {
 		pub fn add_donation(
 			origin: OriginFor<T>,
 			_ideas_id: String,
-			_doantion: u32,
+			_doantion: u64,
 			_userid: String
 		) -> DispatchResult {
 
